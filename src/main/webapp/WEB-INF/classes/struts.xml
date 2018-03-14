@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <include file="struts-default.xml"></include>
+    <!-- 指定默认编码集 -->
+    <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+    <!-- 指定需要Struts2处理的请求后缀 -->
+    <constant name="struts.action.extension" value="do,action"></constant>
+    <!-- 设置浏览器是否缓存静态内容，开发阶段应关闭，生产阶段打开，默认为打开 -->
+    <constant name="struts.serve.static.browserCache" value="false"></constant>
+    <!-- 当struts的配置文件修改后，系统是否自动重新加载该文件，默认为false，开发阶段应打开 -->
+    <constant name="struts.configuration.xml.reload" value="true"></constant>
+    <!-- 开发模式下使用，可以打印出更详细的错误信息 -->
+    <constant name="struts.devMode" value="true"></constant>
+    <!-- 是否开启动态方法调用 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.convention.exclude.parentClassLoader" value="false" />
+    <!--添加包 -->
+
+    <package name="xyz.veiasai.action" namespace="/" extends="json-default">
+        <action name="login" method="login" class="LoginAction">
+            <result name="success" type="json">
+                <!--root是ognl表达式的一部分不能更换  -->
+                <param name="root">user</param>
+            </result>
+        </action>
+        <action name="register" method="register" class="registerAction">
+            <result name="success" type="json">
+                <!--root是ognl表达式的一部分不能更换  -->
+                <param name="root">user</param>
+            </result>
+        </action>
+    </package>
+</struts>  
