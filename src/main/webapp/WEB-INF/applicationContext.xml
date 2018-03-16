@@ -84,6 +84,10 @@
                       id="txPoint"/>
         <aop:advisor advice-ref="txadvice" pointcut-ref="txPoint"/>
     </aop:config>
+    <!-- 配置 HibernateTemplate -->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
     <!-- struts2 -->
     <bean name="LoginAction" class="xyz.veiasai.action.LoginAction">
     </bean>

@@ -15,22 +15,42 @@
     <!-- 开发模式下使用，可以打印出更详细的错误信息 -->
     <constant name="struts.devMode" value="true"></constant>
     <!-- 是否开启动态方法调用 -->
-    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
-    <constant name="struts.convention.exclude.parentClassLoader" value="false" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <constant name="struts.convention.exclude.parentClassLoader" value="false"/>
     <!--添加包 -->
+    <package name="login" namespace="/" extends="json-default">
+        <interceptors>
+            <!-- 定义权限检查拦截器 -->
+            <interceptor name="authority" class="xyz.veiasai.interceptor.UserInterceptor"/>
+        </interceptors>
+        <global-results>
+            <result name="login" type="json">
+                <param name="root">"not login"</param>
+            </result>
+        </global-results>
 
-    <package name="xyz.veiasai.action" namespace="/" extends="json-default">
-        <action name="login" method="login" class="LoginAction">
+        <action name="login" method="login" class="xyz.veiasai.action.LoginAction">
             <result name="success" type="json">
-                <!--root是ognl表达式的一部分不能更换  -->
-                <param name="root">user</param>
+                <param name="root">username</param>
             </result>
         </action>
-        <action name="register" method="register" class="registerAction">
+
+        <action name="seek" method="Seek" class="xyz.veiasai.action.SeekAction">
             <result name="success" type="json">
-                <!--root是ognl表达式的一部分不能更换  -->
+                <param name="root">username</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="authority"/>
+        </action>
+
+        <action name="register" method="register" class="xyz.veiasai.action.RegisterAction">
+            <result name="success" type="json">
                 <param name="root">user</param>
             </result>
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="authority"/>
         </action>
+
     </package>
-</struts>  
+
+</struts>

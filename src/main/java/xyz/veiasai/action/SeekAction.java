@@ -3,12 +3,12 @@ package xyz.veiasai.action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import xyz.veiasai.Dao.DeptDao;
-import xyz.veiasai.pojo.*;
+import xyz.veiasai.pojo.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
-public class LoginAction extends ActionSupport{
+public class SeekAction extends ActionSupport {
     private String username;
 
     public String getUsername() {
@@ -19,11 +19,10 @@ public class LoginAction extends ActionSupport{
         this.username = username;
     }
 
-    public String login() throws Exception{
+    public String Seek() throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
-        this.username = request.getParameter("username");
-        session.setAttribute("username",this.username);
+        this.username = session.getAttribute("username").toString();
         return "success";
     }
 }
