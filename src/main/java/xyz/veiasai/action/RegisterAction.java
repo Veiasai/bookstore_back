@@ -32,6 +32,9 @@ public class RegisterAction extends ActionSupport {
         user = new User();
         user.setUsername(request.getParameter("username"));
         user.setPassword(request.getParameter("password"));
+        user.setEmail(request.getParameter("email"));
+        user.setValid(true);
+        user.setLevel(0);
         deptDaoService.add(user);
         return "success";
     }

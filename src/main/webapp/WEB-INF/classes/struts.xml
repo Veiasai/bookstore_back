@@ -47,8 +47,6 @@
             <result name="success" type="json">
                 <param name="root">user</param>
             </result>
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="authority"/>
         </action>
 
     </package>

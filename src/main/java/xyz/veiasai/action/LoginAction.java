@@ -22,8 +22,10 @@ public class LoginAction extends ActionSupport{
     public String login() throws Exception{
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
-        this.username = request.getParameter("username");
-        session.setAttribute("username",this.username);
+        if (session.getAttribute("email") != null)
+            return "success";
+        this.username = request.getParameter("email");
+        session.setAttribute("email",this.username);
         return "success";
     }
 }

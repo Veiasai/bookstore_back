@@ -18,7 +18,7 @@
     <!-- 数据源配置 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://202.120.40.109:23359/User"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://202.120.40.109:23359/bookstore"></property>
         <property name="user" value="root"></property>
         <property name="password" value="888888"></property>
         <property name="initialPoolSize" value="3"></property>

@@ -3,16 +3,43 @@ package xyz.veiasai.pojo;
 public class User {
     private String username;
     private String password;
-    private int id;
+    private String email;
+    private Boolean valid;
+    private Integer level;
+    private Integer id;
 
     public User() {
     }
 
-    public int getId() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
