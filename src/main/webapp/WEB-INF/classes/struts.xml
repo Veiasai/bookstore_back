@@ -47,6 +47,9 @@
             <result name="success" type="json">
                 <param name="root">user</param>
             </result>
+            <result name="input" type="json">
+                <param name="root">itr</param>
+            </result>
         </action>
 
     </package>

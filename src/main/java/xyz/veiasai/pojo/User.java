@@ -1,16 +1,12 @@
 package xyz.veiasai.pojo;
 
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 public class User {
-
     @NotNull(message="username can't be null")
     private String username;
-    @Pattern(regexp = "[A-Za-z]+[0-9]",message = "password must have both digits and alpha")
+    @Pattern(regexp = "(^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$)",message = "password must have both digits and alpha(size:6-18)")
     private String password;
     private String email;
     private Boolean valid;

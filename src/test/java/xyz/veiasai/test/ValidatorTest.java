@@ -1,17 +1,39 @@
 package xyz.veiasai.test;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import xyz.veiasai.pojo.User;
-import xyz.veiasai.util.ValidatorUtil;
 
-import java.util.Map;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Set;
 
-public class ValidatorTest extends TestCase{
+import static org.junit.Assert.assertEquals;
+
+public class ValidatorTest {
+    private static Validator validator;
+
+    @BeforeClass
+    public static void setUpValidator() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+
+    @Test
     public void testUser() {
-        User t = new User();
-        Map errormap = ValidatorUtil.validate(t);
-        assertTrue(errormap != null);
+
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword("444qqq");
+        user.setEmail("77@qq.com");
+        user.setValid(true);
+        user.setLevel(0);
+        Set<ConstraintViolation<User>> constraintViolations =
+                validator.validate( user );
+
+        assertEquals( 0, constraintViolations.size() );
+        assertEquals( "must not be null", constraintViolations.iterator().next().getMessage());
     }
 }
