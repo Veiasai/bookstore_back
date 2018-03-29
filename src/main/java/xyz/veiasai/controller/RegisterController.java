@@ -1,23 +1,17 @@
 package xyz.veiasai.controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.veiasai.pojo.Test;
+import xyz.veiasai.Dao.DeptDao;
 import xyz.veiasai.pojo.User;
 import xyz.veiasai.service.DeptDaoService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.Iterator;
-import java.util.Set;
-
 @Controller
 public class RegisterController {
-    private User user;
+
+    @Autowired
     private DeptDaoService deptDaoService;
     private String errorMessage;
 
@@ -37,18 +31,12 @@ public class RegisterController {
         this.deptDaoService = deptDaoService;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @RequestMapping(value = "/register")
     @ResponseBody
-    public Test register(@RequestBody Test user) throws Exception {
-
+    public User register(@RequestBody User user) throws Exception {
+        user.setValid(true);
+        user.setLevel(0);
+        deptDaoService.add(user);
         return user;
     }
 }

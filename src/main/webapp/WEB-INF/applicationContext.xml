@@ -19,23 +19,29 @@
 
     <!-- 数据源配置 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="jdbcUrl" value="jdbc:mysql://202.120.40.109:23359/bookstore"></property>
         <property name="user" value="root"></property>
-        <property name="password" value="888888"></property>
+        <property name="password" value="woshiqiangmima123456"></property>
         <property name="initialPoolSize" value="3"></property>
         <property name="maxPoolSize" value="10"></property>
         <property name="maxStatements" value="100"></property>
         <property name="acquireIncrement" value="2"></property>
+
     </bean>
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <!-- 注入连接池对象 -->
         <property name="dataSource" ref="dataSource"></property>
 
+        <property name="packagesToScan">
+            <list>
+                <value>xyz.veiasai.pojo</value>
+            </list>
+        </property>
         <!-- hibernate常用配置 -->
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
@@ -48,11 +54,7 @@
             </list>
         </property>
         -->
-        <property name="mappingDirectoryLocations">
-            <list>
-                <value>/WEB-INF/</value>
-            </list>
-        </property>
+
     </bean>
 
     <!-- dao 实例 -->

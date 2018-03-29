@@ -1,16 +1,36 @@
 package xyz.veiasai.pojo;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 
+@Entity
 public class User {
+    @Column
     @NotNull(message="username can't be null")
     private String username;
+
+    @Column
     @Pattern(regexp = "(^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$)",message = "password must have both digits and alpha(size:6-18)")
     private String password;
+
+    @Column
     private String email;
+
+    @Column
     private Boolean valid;
+
+    @Column
     private Integer level;
+
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     private Integer id;
 
     public User() {
@@ -39,6 +59,7 @@ public class User {
     public void setLevel(Integer level) {
         this.level = level;
     }
+
 
     public Integer getId() {
         return id;
