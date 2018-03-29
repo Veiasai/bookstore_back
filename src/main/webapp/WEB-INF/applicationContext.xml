@@ -14,6 +14,8 @@
    http://www.springframework.org/schema/context
    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+
+    <context:component-scan base-package="xyz.veiasai"></context:component-scan>
     <!-- validator -->
     <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
@@ -47,24 +49,9 @@
             </props>
         </property>
 
-        <!-- hibernate映射配置
-        <property name="mappingLocations">
-            <list>
-                <value>classpath:cn/itcast/entity/*.hbm.xml</value>
-            </list>
-        </property>
-        -->
-
     </bean>
 
-    <!-- dao 实例 -->
-    <bean id="deptDao" class="xyz.veiasai.Dao.DeptDao">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
-    <!-- Service -->
-    <bean id="deptDaoService" class="xyz.veiasai.service.DeptDaoService">
-        <property name="deptDao" ref="deptDao"></property>
-    </bean>
+
     <!-- ###########Spring与Hibernate整合  end########### -->
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">

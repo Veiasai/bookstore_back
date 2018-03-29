@@ -1,10 +1,14 @@
-package xyz.veiasai.Dao;
+package xyz.veiasai.dao;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import xyz.veiasai.pojo.User;
 
-public class DeptDao {
+@Repository
+public class UserDao {
     // Spring与Hibernate整合： IOC容器注入
+    @Autowired
     private SessionFactory sessionFactory;
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

@@ -3,16 +3,14 @@ package xyz.veiasai.pojo;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
 public class User {
     @Column
     @NotNull(message="username can't be null")
+    @Pattern(regexp="(^$|.{6,20})",message = "username size should be 6-20")
     private String username;
 
     @Column
@@ -20,6 +18,7 @@ public class User {
     private String password;
 
     @Column
+    @Email(message = "invalid email")
     private String email;
 
     @Column
