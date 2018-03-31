@@ -13,7 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xyz.veiasai.controller.RegisterController;
-import xyz.veiasai.service.UserDaoService;
+import xyz.veiasai.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -25,7 +25,7 @@ public class ControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private UserDaoService mediaService;
+    private UserService mediaService;
 
     @InjectMocks
     RegisterController mediaController;

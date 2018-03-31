@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
-   http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/jdbc
+   http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
    http://www.springframework.org/schema/aop
    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
    http://www.springframework.org/schema/tx
@@ -15,69 +20,54 @@
    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
-    <context:component-scan base-package="xyz.veiasai"></context:component-scan>
+    <context:component-scan base-package="xyz.veiasai">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+
     <!-- validator -->
+
     <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-    <!-- 数据源配置 -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://202.120.40.109:23359/bookstore"></property>
-        <property name="user" value="root"></property>
-        <property name="password" value="woshiqiangmima123456"></property>
-        <property name="initialPoolSize" value="3"></property>
-        <property name="maxPoolSize" value="10"></property>
-        <property name="maxStatements" value="100"></property>
-        <property name="acquireIncrement" value="2"></property>
-
+    <!--配置数据源-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="root"/>
+        <property name="password" value="woshiqiangmima123456"/>
+        <property name="url" value="jdbc:mysql://202.120.40.109:23359/bookstore"/>
     </bean>
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <!-- 注入连接池对象 -->
-        <property name="dataSource" ref="dataSource"></property>
 
-        <property name="packagesToScan">
-            <list>
-                <value>xyz.veiasai.pojo</value>
-            </list>
+    <!--配置EntityManagerFactory-->
+    <bean id = "entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
-        <!-- hibernate常用配置 -->
-        <property name="hibernateProperties">
+        <property name="packagesToScan" value="xyz.veiasai"/>
+
+        <property name="jpaProperties">
             <props>
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
-
     </bean>
 
-
-    <!-- ###########Spring与Hibernate整合  end########### -->
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"></property>
+    <!--3 配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <!-- 注册通知,是对 Service 层的方法起作用 -->
-    <tx:advice transaction-manager="transactionManager" id="txadvice">
-        <tx:attributes>
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="remove*" propagation="REQUIRED"/>
-            <tx:method name="modify*" propagation="REQUIRED"/>
-            <tx:method name="find*" read-only="true"/>
-            <tx:method name="*" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
-    <!-- 注册切面 -->
-    <aop:config>
-        <!-- Service 层 -->
-        <aop:pointcut expression="execution(* *..service.*.*(..))"
-                      id="txPoint"/>
-        <aop:advisor advice-ref="txadvice" pointcut-ref="txPoint"/>
-    </aop:config>
-    <!-- 配置 HibernateTemplate -->
-    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
+    <!--4 配置支持注解的事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--5 配置spring data-->
+    <jpa:repositories base-package="xyz.veiasai" entity-manager-factory-ref="entityManagerFactory"/>
 
 </beans>

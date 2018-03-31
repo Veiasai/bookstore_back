@@ -11,8 +11,6 @@ import java.util.List;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Mask {
-
-
     private User user;
     private List<String> message = new ArrayList();
     private Integer timeID;
