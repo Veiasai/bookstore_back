@@ -1,6 +1,6 @@
 package xyz.veiasai.controller;
 
-/*import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -24,10 +24,11 @@ public class LoginController {
     @ResponseBody
     public LoginResult Login(@RequestBody @Valid LoginUser loginUser, BindingResult bindingResult, HttpSession httpSession) throws Exception {
         LoginResult loginResult = new LoginResult();
-        Integer id = (Integer) httpSession.getAttribute("userID");
-        if (id != null) //has logged in
+        String email = (String) httpSession.getAttribute("userEmail");
+        if (email != null) //has logged in
         {
             loginResult.setCode(200);
+            loginResult.setUser(userService.findByEmail(email));
             return loginResult;
         }
         else if (bindingResult.hasErrors()) {
@@ -39,17 +40,14 @@ public class LoginController {
         }
 
         User user = userService.login(loginUser.getEmail(), loginUser.getPassword());
-        if (user != null)
-        {
-            httpSession.setAttribute("userID", user.getId());
+        if (user != null) {
+            httpSession.setAttribute("userEmail", user.getEmail());
             loginResult.setUser(user);
             loginResult.setCode(200);
-        }
-        else
-        {
+        } else {
             loginResult.addMessage("incorrect email or password");
             loginResult.setCode(400);
         }
         return loginResult;
     }
-}*/
+}

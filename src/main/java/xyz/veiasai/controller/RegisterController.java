@@ -33,7 +33,7 @@ public class RegisterController {
 
         user.setLevel(0);
         user.setValid(true);
-        if (userService.add(user) == true) {
+        if (userService.add(user)) {
             registerResult.setUser(user);
             registerResult.setCode(200);
         } else {
