@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.pojo.User;
-import xyz.veiasai.server.Mask;
+import xyz.veiasai.server.RegisterResult;
 import xyz.veiasai.service.UserService;
 
 import javax.validation.Valid;
@@ -19,32 +19,27 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
     @RequestMapping(value = "/register")
     @ResponseBody
-    public Mask register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
-        Mask mask = new Mask();
+    public RegisterResult register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
+        RegisterResult registerResult = new RegisterResult();
         if (bindingResult.hasErrors()) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                mask.addMessage(fieldError.getDefaultMessage());
+                registerResult.addMessage(fieldError.getDefaultMessage());
             }
-            mask.setUser(null);
-            mask.setCode(400);
-            return mask;
+            registerResult.setCode(400);
+            return registerResult;
         }
 
         user.setLevel(0);
         user.setValid(true);
-        userService.add(user);
-        mask.setUser(user);
-        mask.setCode(200);
-        return mask;
+        if (userService.add(user) == true) {
+            registerResult.setUser(user);
+            registerResult.setCode(200);
+        } else {
+            registerResult.addMessage("this email has existed");
+            registerResult.setCode(403);
+        }
+        return registerResult;
     }
 }

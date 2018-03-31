@@ -1,16 +1,14 @@
 package xyz.veiasai.server;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import xyz.veiasai.pojo.LoginUser;
 import xyz.veiasai.pojo.User;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class Mask {
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+public class LoginResult {
     private User user;
     private List<String> message = new ArrayList();
     private Integer timeID;
@@ -23,8 +21,6 @@ public class Mask {
     public void setTimeID(Integer timeID) {
         this.timeID = timeID;
     }
-
-
 
     public User getUser() {
         return user;
