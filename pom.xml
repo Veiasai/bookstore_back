@@ -9,7 +9,7 @@
     <url>http://maven.apache.org</url>
     <properties>
         <junit.version>4.12</junit.version>
-        <spring.version>4.3.14.RELEASE</spring.version>
+        <spring.version>5.0.4.RELEASE</spring.version>
         <commons-logging.version>1.2</commons-logging.version>
 
     </properties>
@@ -300,12 +300,7 @@
             <artifactId>jboss-logging</artifactId>
             <version>3.3.2.Final</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.0-api -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
-        </dependency>
+
         <!-- https://mvnrepository.com/artifact/antlr/antlr -->
         <dependency>
             <groupId>antlr</groupId>
@@ -343,7 +338,37 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.7-dmr</version>
         </dependency>
-        
+
+        <!-- jdk9.0 缺少依赖 -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>bookstore</finalName>
