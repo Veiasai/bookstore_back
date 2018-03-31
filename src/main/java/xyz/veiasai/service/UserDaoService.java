@@ -2,7 +2,7 @@ package xyz.veiasai.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.veiasai.dao.UserDao;
+import xyz.veiasai.Dao.UserDao;
 import xyz.veiasai.pojo.User;
 
 @Service

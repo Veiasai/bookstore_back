@@ -1,4 +1,4 @@
-package xyz.veiasai.dao;
+package xyz.veiasai.Dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

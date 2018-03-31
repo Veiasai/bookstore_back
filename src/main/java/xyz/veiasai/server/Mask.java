@@ -2,6 +2,7 @@ package xyz.veiasai.server;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import xyz.veiasai.pojo.User;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Mask {
+
 
     private User user;
     private List<String> message = new ArrayList();

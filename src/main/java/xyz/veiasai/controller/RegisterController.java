@@ -12,6 +12,8 @@ import xyz.veiasai.pojo.User;
 import xyz.veiasai.server.Mask;
 import xyz.veiasai.service.UserDaoService;
 
+import javax.validation.Valid;
+
 @Controller
 public class RegisterController {
 
@@ -28,8 +30,9 @@ public class RegisterController {
 
     @RequestMapping(value = "/register")
     @ResponseBody
-    public Mask register(@RequestBody @Validated Mask mask, BindingResult bindingResult) throws Exception {
-        if (bindingResult.hasErrors() || mask.getUser() == null) {
+    public Mask register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
+        Mask mask = new Mask();
+        if (bindingResult.hasErrors()) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
                 mask.addMessage(fieldError.getDefaultMessage());
             }
@@ -38,11 +41,10 @@ public class RegisterController {
             return mask;
         }
 
-        User user = mask.getUser();
         user.setLevel(0);
         user.setValid(true);
         userDaoService.add(user);
-
+        mask.setUser(user);
         mask.setCode(200);
         return mask;
     }
