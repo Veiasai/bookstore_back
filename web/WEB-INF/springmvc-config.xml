@@ -14,4 +14,9 @@
     <mvc:annotation-driven/>
     <!-- 使用默认的servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
+
+    <mvc:cors>
+        <mvc:mapping path="/**" allow-credentials="true" />
+
+    </mvc:cors>
 </beans>

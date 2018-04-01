@@ -4,16 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.pojo.LoginUser;
 import xyz.veiasai.pojo.User;
-import xyz.veiasai.server.LoginResult;
+import xyz.veiasai.server.UserResult;
 import xyz.veiasai.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 
 @Controller
 public class LoginController {
@@ -22,32 +24,49 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public LoginResult Login(@RequestBody @Valid LoginUser loginUser, BindingResult bindingResult, HttpSession httpSession) throws Exception {
-        LoginResult loginResult = new LoginResult();
-        String email = (String) httpSession.getAttribute("userEmail");
-        if (email != null) //has logged in
+    public UserResult Login(@RequestBody @Valid LoginUser loginUser, BindingResult bindingResult, HttpSession httpSession) throws Exception {
+        UserResult userResult = new UserResult();
+        Integer id = (Integer) httpSession.getAttribute("userID");
+        if (id != null) //has logged in
         {
-            loginResult.setCode(200);
-            loginResult.setUser(userService.findByEmail(email));
-            return loginResult;
-        }
-        else if (bindingResult.hasErrors()) {
+            userResult.setCode(200);
+            userResult.setUser(userService.findById(id));
+            return userResult;
+        } else if (bindingResult.hasErrors()) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                loginResult.addMessage(fieldError.getDefaultMessage());
+                userResult.addMessage(fieldError.getDefaultMessage());
             }
-            loginResult.setCode(400);
-            return loginResult;
+            userResult.setCode(400);
+            return userResult;
         }
 
         User user = userService.login(loginUser.getEmail(), loginUser.getPassword());
         if (user != null) {
-            httpSession.setAttribute("userEmail", user.getEmail());
-            loginResult.setUser(user);
-            loginResult.setCode(200);
+            httpSession.setAttribute("userID", user.getId());
+            userResult.setUser(user);
+            userResult.setCode(200);
         } else {
-            loginResult.addMessage("incorrect email or password");
-            loginResult.setCode(400);
+            userResult.addMessage("incorrect email or password");
+            userResult.setCode(403);
         }
-        return loginResult;
+        return userResult;
+    }
+
+
+    @RequestMapping(value = "/logout")
+    @ResponseBody
+    public UserResult Logout(HttpSession httpSession) throws Exception {
+        UserResult userResult = new UserResult();
+        Integer id = (Integer) httpSession.getAttribute("userID");
+        if (id != null) //has logged in
+        {
+            httpSession.invalidate();
+            userResult.setCode(200);
+            userResult.addMessage("log out success");
+            return userResult;
+        }
+        userResult.setCode(403);
+        userResult.addMessage("No session");
+        return userResult;
     }
 }

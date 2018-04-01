@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import xyz.veiasai.pojo.LoginUser;
 import xyz.veiasai.pojo.User;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class LoginResult {
+public class UserResult {
+
     private User user;
     private List<String> message = new ArrayList();
     private Integer timeID;

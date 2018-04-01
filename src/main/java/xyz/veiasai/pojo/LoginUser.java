@@ -9,23 +9,12 @@ import javax.validation.constraints.Pattern;
 
 public class LoginUser {
 
-    @NotNull
-    @Pattern(regexp = "(^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$)",message = "password must have both digits and alpha(size:6-18)")
+    @NotNull(message = "password can't be null")
     private String password;
 
-    @NotNull
+    @NotNull(message = "email can't be null")
     @Email(message = "invalid email")
     private String email;
-
-    private String username;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

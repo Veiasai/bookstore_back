@@ -1,11 +1,11 @@
 package xyz.veiasai.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 
 @Entity
 public class User {
@@ -16,20 +16,24 @@ public class User {
     private String username;
 
     @Column
+    @NotNull(message="password can't be null")
     @Pattern(regexp = "(^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$)",message = "password must have both digits and alpha(size:6-18)")
     private String password;
 
-
     @Column(unique = true)
+    @NotNull(message="email can't be null")
     @Email(message = "invalid email")
     private String email;
 
+    @JsonIgnore
     @Column
     private Boolean valid;
 
+    @JsonIgnore
     @Column
     private Integer level;
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

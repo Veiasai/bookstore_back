@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import xyz.veiasai.Dao.UserRepository;
 import xyz.veiasai.pojo.User;
 
-import javax.annotation.Resource;
-
 
 @Service
 public class UserService {
@@ -15,8 +13,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public boolean add(User user) {
-        if (userRepository.findByEmail(user.getEmail()) == null)
-        {
+        if (userRepository.findByEmail(user.getEmail()) == null) {
             userRepository.save(user);
             return true;
         }
@@ -31,4 +28,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public User findById(Integer id) {
+        return userRepository.findById(id).get();
+    }
 }
