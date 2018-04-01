@@ -12,6 +12,9 @@ public class CartService {
     private CartRepository cartRepository;
 
     public boolean add(Cart cart) {
+        Cart oldcart = cartRepository.findByIndex(cart.getIndex());
+        if (oldcart != null)
+            cart.setId(oldcart.getId());
         cartRepository.save(cart);
         return true;
     }

@@ -5,4 +5,6 @@ import xyz.veiasai.mongodb.pojo.Cart;
 
 public interface CartRepository extends MongoRepository<Cart, Integer>{
 
+    public Cart findByIndex(Integer index);
+
 }

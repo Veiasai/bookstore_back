@@ -13,6 +13,14 @@ public class SingleBook {
     private String bookName;
 
     @Column
-    private String bookprice;
+    private Integer bookPrice;
 
+    @Column
+    private String bookWriter;
+
+    @Column
+    private String bookDate;
+
+    @Column
+    private String bookClass;
 }

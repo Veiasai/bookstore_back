@@ -22,7 +22,7 @@ public class CartController {
         Integer id = (Integer) httpSession.getAttribute("userID");
         if (id != null) //has logged in
         {
-            cart.setId(id);
+            cart.setIndex(id);
             cartService.add(cart);
             return "add cart";
         }
