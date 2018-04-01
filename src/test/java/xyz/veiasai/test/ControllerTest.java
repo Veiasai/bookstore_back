@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import xyz.veiasai.controller.RegisterController;
-import xyz.veiasai.service.UserService;
+import xyz.veiasai.hibernate.controller.RegisterController;
+import xyz.veiasai.hibernate.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration

@@ -1,8 +1,8 @@
-package xyz.veiasai.Dao;
+package xyz.veiasai.hibernate.Dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import xyz.veiasai.pojo.User;
+import xyz.veiasai.hibernate.pojo.User;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 

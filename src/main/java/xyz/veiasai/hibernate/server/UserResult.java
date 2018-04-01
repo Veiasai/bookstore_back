@@ -1,10 +1,8 @@
-package xyz.veiasai.server;
+package xyz.veiasai.hibernate.server;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import xyz.veiasai.pojo.LoginUser;
-import xyz.veiasai.pojo.User;
+import xyz.veiasai.hibernate.pojo.User;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 

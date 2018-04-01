@@ -1,9 +1,9 @@
-package xyz.veiasai.service;
+package xyz.veiasai.hibernate.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.veiasai.Dao.UserRepository;
-import xyz.veiasai.pojo.User;
+import xyz.veiasai.hibernate.Dao.UserRepository;
+import xyz.veiasai.hibernate.pojo.User;
 
 @Service
 public class UserService {

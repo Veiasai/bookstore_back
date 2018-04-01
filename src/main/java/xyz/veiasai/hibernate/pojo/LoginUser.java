@@ -1,10 +1,7 @@
-package xyz.veiasai.pojo;
-
-import org.springframework.stereotype.Component;
+package xyz.veiasai.hibernate.pojo;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 
 public class LoginUser {

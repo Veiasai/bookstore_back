@@ -1,4 +1,4 @@
-package xyz.veiasai.pojo;
+package xyz.veiasai.hibernate.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

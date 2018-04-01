@@ -2,7 +2,7 @@ package xyz.veiasai.test;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import xyz.veiasai.pojo.User;
+import xyz.veiasai.hibernate.pojo.User;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
