@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import xyz.veiasai.Dao.UserRepository;
 import xyz.veiasai.pojo.User;
 
-
 @Service
 public class UserService {
 
@@ -22,10 +21,6 @@ public class UserService {
 
     public User login(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);
-    }
-
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
     }
 
     public User findById(Integer id) {
