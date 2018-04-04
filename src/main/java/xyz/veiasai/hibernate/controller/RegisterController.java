@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.hibernate.pojo.User;
+import xyz.veiasai.hibernate.server.Result;
 import xyz.veiasai.hibernate.server.UserResult;
 import xyz.veiasai.hibernate.service.UserService;
 
@@ -22,7 +23,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/register")
     @ResponseBody
-    public UserResult register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
+    public Result register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
         UserResult UserResult = new UserResult();
         if (bindingResult.hasErrors()) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {

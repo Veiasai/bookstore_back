@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-public class ValidatorTest {
+public class MyValidatorTest {
     private static Validator validator;
 
     @BeforeClass

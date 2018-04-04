@@ -3,14 +3,15 @@ package xyz.veiasai.hibernate.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.hibernate.pojo.LoginUser;
 import xyz.veiasai.hibernate.pojo.User;
+import xyz.veiasai.hibernate.server.Result;
 import xyz.veiasai.hibernate.server.UserResult;
 import xyz.veiasai.hibernate.service.UserService;
+import xyz.veiasai.util.MyValidator;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -23,7 +24,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public UserResult Login(@RequestBody @Valid LoginUser loginUser, BindingResult bindingResult, HttpSession httpSession) throws Exception {
+    public Result Login(@RequestBody @Valid LoginUser loginUser, BindingResult bindingResult, HttpSession httpSession) throws Exception {
         UserResult userResult = new UserResult();
         Integer id = (Integer) httpSession.getAttribute("userID");
         if (id != null) //has logged in
@@ -32,11 +33,7 @@ public class LoginController {
             userResult.setUser(userService.findById(id));
             return userResult;
         } else if (bindingResult.hasErrors()) {
-            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                userResult.addMessage(fieldError.getDefaultMessage());
-            }
-            userResult.setCode(400);
-            return userResult;
+            return MyValidator.notMatched(bindingResult, userResult);
         }
 
         User user = userService.login(loginUser.getEmail(), loginUser.getPassword());
@@ -54,8 +51,8 @@ public class LoginController {
 
     @RequestMapping(value = "/logout")
     @ResponseBody
-    public UserResult Logout(HttpSession httpSession) throws Exception {
-        UserResult userResult = new UserResult();
+    public Result Logout(HttpSession httpSession) throws Exception {
+        Result userResult = new UserResult();
         Integer id = (Integer) httpSession.getAttribute("userID");
         if (id != null) //has logged in
         {

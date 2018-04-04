@@ -1,26 +1,24 @@
 package xyz.veiasai.hibernate.server;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import xyz.veiasai.hibernate.pojo.User;
+import xyz.veiasai.hibernate.pojo.SingleBook;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class UserResult implements Result {
-
-    private User user;
+public class BookResult implements Result {
     private List<String> message = new ArrayList();
+    List<SingleBook> Books;
     private Integer timeID;
     private Integer code;
 
-
-    public User getUser() {
-        return user;
+    public List<SingleBook> getBooks() {
+        return Books;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setBooks(List<SingleBook> books) {
+        Books = books;
     }
 
     public List<String> getMessage() {
