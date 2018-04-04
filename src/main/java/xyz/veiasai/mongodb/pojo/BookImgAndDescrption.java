@@ -1,5 +1,6 @@
 package xyz.veiasai.mongodb.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,9 +11,11 @@ import java.math.BigInteger;
 @Document
 public class BookImgAndDescrption implements Serializable {
     @Id
+    @JsonIgnore
     private BigInteger id;
 
     @Indexed
+    @JsonIgnore
     private Integer bookid;
 
     private String bookImg;

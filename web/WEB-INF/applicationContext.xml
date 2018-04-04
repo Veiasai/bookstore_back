@@ -38,7 +38,7 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="username" value="root"/>
         <property name="password" value="woshiqiangmima123456"/>
-        <property name="url" value="jdbc:mysql://202.120.40.109:23359/bookstore"/>
+        <property name="url" value="jdbc:mysql://202.120.40.109:23359/bookstore?characterEncoding=UTF-8"/>
     </bean>
 
     <!--配置EntityManagerFactory-->

@@ -17,4 +17,8 @@ public class BookImgService {
         bookImgRepository.save(bookImgAndDescrption);
         return true;
     }
+
+    public BookImgAndDescrption findbyBookid(Integer bookid) {
+        return bookImgRepository.findByBookid(bookid);
+    }
 }
