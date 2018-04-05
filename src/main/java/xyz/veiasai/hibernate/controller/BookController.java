@@ -10,18 +10,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.hibernate.mask.ReceiveBook;
 import xyz.veiasai.hibernate.mask.SearchBook;
 import xyz.veiasai.hibernate.pojo.SingleBook;
-import xyz.veiasai.hibernate.server.BookResult;
-import xyz.veiasai.hibernate.server.Result;
+import xyz.veiasai.hibernate.result.BookResult;
+import xyz.veiasai.hibernate.result.Result;
 import xyz.veiasai.hibernate.service.BookService;
 import xyz.veiasai.mongodb.pojo.BookImgAndDescrption;
 import xyz.veiasai.mongodb.service.BookImgService;
 import xyz.veiasai.util.MyValidator;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.PrintWriter;
 
 @Controller
 public class BookController {

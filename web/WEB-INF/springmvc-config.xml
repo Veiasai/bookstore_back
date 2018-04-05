@@ -24,6 +24,14 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/cartget"/>
+            <mvc:mapping path="/cartpost"/>
+            <bean class="xyz.veiasai.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <mvc:cors>
         <mvc:mapping path="/**" allow-credentials="true" />
     </mvc:cors>

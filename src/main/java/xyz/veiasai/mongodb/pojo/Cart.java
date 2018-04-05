@@ -1,5 +1,6 @@
 package xyz.veiasai.mongodb.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,11 +14,14 @@ import java.util.List;
 public class Cart implements Serializable {
 
     @Id
+    @JsonIgnore
     private BigInteger id;
+
     @Indexed
+    @JsonIgnore
     private Integer index;
 
-    private List<CartBook> books = new ArrayList<CartBook>();
+    private List<Integer> bookIDs;
 
     public BigInteger getId() {
         return id;
@@ -35,11 +39,11 @@ public class Cart implements Serializable {
         this.index = index;
     }
 
-    public List<CartBook> getBooks() {
-        return books;
+    public List<Integer> getBookIDs() {
+        return bookIDs;
     }
 
-    public void setBooks(List<CartBook> books) {
-        this.books = books;
+    public void setBookIDs(List<Integer> bookIDs) {
+        this.bookIDs = bookIDs;
     }
 }

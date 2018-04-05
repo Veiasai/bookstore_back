@@ -3,11 +3,10 @@ package xyz.veiasai.util;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import xyz.veiasai.hibernate.server.Result;
+import xyz.veiasai.hibernate.result.Result;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 public class MyValidator {
     private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();

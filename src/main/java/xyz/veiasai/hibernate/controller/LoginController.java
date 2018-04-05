@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.hibernate.pojo.LoginUser;
 import xyz.veiasai.hibernate.pojo.User;
-import xyz.veiasai.hibernate.server.Result;
-import xyz.veiasai.hibernate.server.UserResult;
+import xyz.veiasai.hibernate.result.Result;
+import xyz.veiasai.hibernate.result.UserResult;
 import xyz.veiasai.hibernate.service.UserService;
 import xyz.veiasai.util.MyValidator;
 
