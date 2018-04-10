@@ -13,6 +13,7 @@ import xyz.veiasai.hibernate.mask.ReceiveOrder;
 import xyz.veiasai.hibernate.mask.SearchBook;
 import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.hibernate.result.BookResult;
+import xyz.veiasai.hibernate.result.OrderResult;
 import xyz.veiasai.hibernate.result.Result;
 import xyz.veiasai.hibernate.service.BookService;
 import xyz.veiasai.mongodb.pojo.BookImgAndDescrption;
@@ -60,4 +61,12 @@ public class OrderController {
         return result;
     }
 
+    @RequestMapping(value = "/getorder")
+    @ResponseBody
+    public Result BookPost(HttpSession session) throws Exception {
+        OrderResult orderResult = new OrderResult();
+        orderResult.setOrders(orderService.findUserOrders((Integer) session.getAttribute("userID")));
+        orderResult.setCode(200);
+        return orderResult;
+    }
 }

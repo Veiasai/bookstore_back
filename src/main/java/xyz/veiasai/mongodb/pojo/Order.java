@@ -1,8 +1,14 @@
 package xyz.veiasai.mongodb.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import xyz.veiasai.util.MyIdDeserializer;
+import xyz.veiasai.util.MyIdSerializer;
 
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -10,9 +16,13 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Document
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+
 public class Order implements Serializable {
+
     @Id
-    @JsonIgnore
+    @JsonDeserialize(using = MyIdDeserializer.class)
+    @JsonSerialize(using = MyIdSerializer.class)
     private BigInteger id;
 
     @JsonIgnore
@@ -76,3 +86,4 @@ public class Order implements Serializable {
         this.date = date;
     }
 }
+
