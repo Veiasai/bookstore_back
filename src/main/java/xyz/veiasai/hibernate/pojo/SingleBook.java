@@ -1,6 +1,7 @@
 package xyz.veiasai.hibernate.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import xyz.veiasai.util.groups.update;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -11,35 +12,36 @@ public class SingleBook {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bookID;
 
-    @NotEmpty
+
+    @NotEmpty(message = "bookName can't be empty")
     @Column
     private String bookName;
 
-    @NotNull
-    @DecimalMax("999")
-    @DecimalMin("1")
+    @NotNull(message = "bookPrice can't be null")
+    @DecimalMax(value = "999",message = "bookPrice > 999")
+    @DecimalMin(value = "0",message = "bookPrice < 1")
     @Column
     private Integer bookPrice;
 
-    @NotNull
-    @DecimalMax("999")
-    @DecimalMin("0")
+    @NotNull(groups = {update.class})
+    @DecimalMax(value = "999",message = "bookStock > 999")
+    @DecimalMin(value = "0",message = "bookStock < 1")
     @Column
     private Integer bookStock;
 
-    @NotEmpty
+    @NotEmpty(message = "bookWriter can't be empty")
     @Column
     private String bookWriter;
 
-    @NotEmpty
+    @NotEmpty(message = "bookDate can't be empty")
     @Column
     private String bookDate;
 
-    @NotEmpty
+    @NotEmpty(message = "bookClass can't be empty")
     @Column
     private String bookClass;
 
-    @NotNull
+    @NotNull(groups = {update.class},message = "valid can't be null")
     @Column
     private Boolean valid;
 

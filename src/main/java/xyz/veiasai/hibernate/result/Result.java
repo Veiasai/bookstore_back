@@ -20,6 +20,14 @@ public class Result {
         return code;
     }
 
+    public List<String> getMessage() {
+        return message;
+    }
+
+    public void setMessage(List<String> message) {
+        this.message = message;
+    }
+
     public void setCode(Integer code) {
         this.code = code;
     }

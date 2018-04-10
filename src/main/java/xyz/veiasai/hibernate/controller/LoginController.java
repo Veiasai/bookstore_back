@@ -22,6 +22,12 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "/")
+    @ResponseBody
+    public String helloworld() throws Exception {
+        return "ok";
+    }
+
     @RequestMapping(value = "/login")
     @ResponseBody
     public Result Login(@RequestBody @Valid LoginUser loginUser, BindingResult bindingResult, HttpSession httpSession) throws Exception {

@@ -22,16 +22,19 @@ public class CartController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping(value = "/cartpost")
+    @RequestMapping(value = "/postcart")
     @ResponseBody
-    public String CartPost(@RequestBody Cart cart, HttpSession httpSession) throws Exception {
+    public Result CartPost(@RequestBody Cart cart, HttpSession httpSession) throws Exception {
+        CartResult cartResult = new CartResult();
         Integer id = (Integer) httpSession.getAttribute("userID");
         cart.setIndex(id);
         cartService.add(cart);
-        return "add cart";
+        cartResult.addMessage("update cart success");
+        cartResult.setCode(200);
+        return cartResult;
     }
 
-    @RequestMapping(value = "/cartget")
+    @RequestMapping(value = "/getcart")
     @ResponseBody
     public Result Cartget(HttpSession httpSession) throws Exception {
         CartResult cartResult = new CartResult();

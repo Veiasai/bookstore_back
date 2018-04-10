@@ -3,6 +3,7 @@ package xyz.veiasai.hibernate.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class BookController {
 
     @RequestMapping(value = "/postbook")
     @ResponseBody
-    public Result BookPost(@RequestBody @Valid  ReceiveBook receiveBook, BindingResult bindingResult) throws Exception {
+    public Result BookPost(@RequestBody @Validated ReceiveBook receiveBook, BindingResult bindingResult) throws Exception {
         BookResult bookResult = new BookResult();
         if (bindingResult.hasErrors()) {
             return MyValidator.notMatched(bindingResult, bookResult);

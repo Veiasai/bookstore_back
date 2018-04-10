@@ -3,13 +3,17 @@ package xyz.veiasai.hibernate.mask;
 import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.mongodb.pojo.BookImgAndDescrption;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
 
 public class ReceiveBook {
     @NotNull
+    @Valid
     private SingleBook singleBook;
 
     @NotNull
+    @Valid
     private BookImgAndDescrption bookImgAndDescrption;
 
     public SingleBook getSingleBook() {

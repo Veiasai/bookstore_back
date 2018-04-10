@@ -33,9 +33,9 @@ public class RegisterController {
             return UserResult;
         }
 
-        user.setLevel(0);
-        user.setValid(true);
         if (userService.add(user)) {
+            user.setLevel(0);
+            user.setValid(true);
             UserResult.setUser(user);
             UserResult.setCode(200);
         } else {

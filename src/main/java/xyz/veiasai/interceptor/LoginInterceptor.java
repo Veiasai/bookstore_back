@@ -11,8 +11,12 @@ public class LoginInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession httpSession = request.getSession(false);
         if (httpSession == null){
-            response.setStatus(403);
-            response.getWriter().print("need login");
+            response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, HEAD");
+            response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+            response.addHeader("content-type","application/json;charset=UTF-8");
+            response.getWriter().print("{\"code\":\"403\"}");
             return false;
         }
         return true;
