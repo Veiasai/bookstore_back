@@ -3,7 +3,9 @@ package xyz.veiasai.mongodb.dao;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import xyz.veiasai.mongodb.pojo.BookImgAndDescrption;
 
-public interface BookImgRepository extends MongoRepository<BookImgAndDescrption, Integer> {
+import java.math.BigInteger;
+
+public interface BookImgRepository extends MongoRepository<BookImgAndDescrption, BigInteger> {
 
     public BookImgAndDescrption findByBookid(Integer bookid);
 }

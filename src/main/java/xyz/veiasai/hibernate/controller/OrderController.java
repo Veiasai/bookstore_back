@@ -23,10 +23,12 @@ import xyz.veiasai.mongodb.service.BookImgService;
 import xyz.veiasai.mongodb.service.OrderService;
 import xyz.veiasai.util.MyValidator;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class OrderController {
 
     @RequestMapping(value = "/postorder")
     @ResponseBody
-    public Result BookPost(@RequestBody @Validated ReceiveOrder receiveOrder, BindingResult bindingResult, HttpSession session) throws Exception {
+    public Result OrderPost(@RequestBody @Validated ReceiveOrder receiveOrder, BindingResult bindingResult, HttpSession session) throws Exception {
         Result result = new Result();
         if (bindingResult.hasErrors()) {
             return MyValidator.notMatched(bindingResult, result);
@@ -48,8 +50,7 @@ public class OrderController {
         Order order = new Order();
         try {
             List<Commodity> commodities = bookService.generateOrder(receiveOrder.getBooks(), order);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             result.addMessage(e.toString());
             result.setCode(400);
         }
@@ -63,10 +64,28 @@ public class OrderController {
 
     @RequestMapping(value = "/getorder")
     @ResponseBody
-    public Result BookPost(HttpSession session) throws Exception {
+    public Result OrderGet(HttpSession session) throws Exception {
         OrderResult orderResult = new OrderResult();
         orderResult.setOrders(orderService.findUserOrders((Integer) session.getAttribute("userID")));
         orderResult.setCode(200);
+        return orderResult;
+    }
+
+    @RequestMapping(value = "/getorder/{id}")
+    @ResponseBody
+    public Result OrderGetOne(@PathVariable BigInteger id, HttpSession session) throws Exception {
+        OrderResult orderResult = new OrderResult();
+        Order order = orderService.findById(id);
+        if (order == null) {
+            orderResult.addMessage("Not Found");
+            orderResult.setCode(400);
+        } else if (order.getUserID() != (Integer) session.getAttribute("userID")) {
+            orderResult.addMessage("Forbidden");
+            orderResult.setCode(400);
+        } else {
+            orderResult.setOrder(order);
+            orderResult.setCode(200);
+        }
         return orderResult;
     }
 }

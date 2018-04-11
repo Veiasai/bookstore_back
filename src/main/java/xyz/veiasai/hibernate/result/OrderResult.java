@@ -10,6 +10,8 @@ import java.util.List;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class OrderResult extends Result {
 
+    private  Order order;
+
     private List<Order> orders;
 
     public List<Order> getOrders() {
@@ -18,5 +20,13 @@ public class OrderResult extends Result {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

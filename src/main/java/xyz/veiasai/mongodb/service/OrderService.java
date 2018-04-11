@@ -6,6 +6,7 @@ import xyz.veiasai.mongodb.dao.OrderRepository;
 import xyz.veiasai.mongodb.pojo.Commodity;
 import xyz.veiasai.mongodb.pojo.Order;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -20,5 +21,9 @@ public class OrderService {
 
     public List<Order> findUserOrders(Integer userID) {
         return orderRepository.findAllByIndex(userID);
+    }
+
+    public Order findById(BigInteger id) {
+        return orderRepository.findById(id).get();
     }
 }
