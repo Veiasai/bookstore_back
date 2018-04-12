@@ -1,4 +1,4 @@
-package xyz.veiasai.hibernate.mask;
+package xyz.veiasai.hibernate.receivejson;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -9,16 +9,16 @@ import java.util.List;
 public class ReceiveOrder {
     @NotNull
     @Valid
-    private List<SingleCommodity> books;
+    private List<ReceiveCommodity> books;
 
     @NotEmpty(message = "date can'be empty")
     private String date;
 
-    public List<SingleCommodity> getBooks() {
+    public List<ReceiveCommodity> getBooks() {
         return books;
     }
 
-    public void setBooks(List<SingleCommodity> books) {
+    public void setBooks(List<ReceiveCommodity> books) {
         this.books = books;
     }
 

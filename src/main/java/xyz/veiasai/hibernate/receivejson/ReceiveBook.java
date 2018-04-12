@@ -1,4 +1,4 @@
-package xyz.veiasai.hibernate.mask;
+package xyz.veiasai.hibernate.receivejson;
 
 import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.mongodb.pojo.BookImgAndDescrption;

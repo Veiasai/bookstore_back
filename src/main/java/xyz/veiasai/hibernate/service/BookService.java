@@ -3,13 +3,12 @@ package xyz.veiasai.hibernate.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.veiasai.hibernate.Dao.BookRepository;
-import xyz.veiasai.hibernate.mask.SingleCommodity;
+import xyz.veiasai.hibernate.receivejson.ReceiveCommodity;
 import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.mongodb.pojo.Commodity;
 import xyz.veiasai.mongodb.pojo.Order;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -35,14 +34,18 @@ public class BookService {
         return list;
     }
 
+    public List<SingleBook> searchValid(boolean valid) {
+        return bookRepository.findAllByValid(valid);
+    }
+
     public SingleBook findById(Integer id) {
         return bookRepository.findById(id).get();
     }
 
-    public List<Commodity> generateOrder(List<SingleCommodity> rebooks, Order order) throws Exception {
+    public List<Commodity> generateOrder(List<ReceiveCommodity> rebooks, Order order) throws Exception {
         List<Commodity> books = new ArrayList<Commodity>();
         Integer total = 0;
-        for (SingleCommodity sc : rebooks) {
+        for (ReceiveCommodity sc : rebooks) {
             SingleBook singleBook = findById(sc.getBookID());
             if (singleBook == null)
                 throw new Exception("不存在的书籍");

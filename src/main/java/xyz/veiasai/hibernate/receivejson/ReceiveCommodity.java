@@ -1,8 +1,8 @@
-package xyz.veiasai.hibernate.mask;
+package xyz.veiasai.hibernate.receivejson;
 
 import javax.validation.constraints.NotNull;
 
-public class SingleCommodity {
+public class ReceiveCommodity {
     @NotNull
     private Integer bookID;
 

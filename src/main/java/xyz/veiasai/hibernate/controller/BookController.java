@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.veiasai.hibernate.mask.ReceiveBook;
-import xyz.veiasai.hibernate.mask.SearchBook;
+import xyz.veiasai.hibernate.receivejson.ReceiveBook;
+import xyz.veiasai.hibernate.receivejson.SearchBook;
 import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.hibernate.result.BookResult;
 import xyz.veiasai.hibernate.result.Result;
@@ -61,7 +61,8 @@ public class BookController {
             return MyValidator.notMatched(bindingResult, bookResult);
         }
 
-        bookResult.setBooks(bookService.searchAll());
+
+        bookResult.setBooks(bookService.searchValid(true));
         bookResult.addMessage("search success");
         bookResult.setCode(200);
         return bookResult;
@@ -79,7 +80,7 @@ public class BookController {
 
         SingleBook temp1 = bookService.findById(bookID);
         BookImgAndDescrption temp2 = bookImgService.findbyBookid(bookID);
-        if (temp2 == null || temp1 == null)
+        if (temp2 == null || temp1 == null || !temp1.getValid())
         {
             bookResult.addMessage("not found");
             bookResult.setCode(400);
