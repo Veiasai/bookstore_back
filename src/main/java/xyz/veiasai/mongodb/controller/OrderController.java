@@ -1,4 +1,4 @@
-package xyz.veiasai.hibernate.controller;
+package xyz.veiasai.mongodb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.veiasai.hibernate.receivejson.ReceiveOrder;
-import xyz.veiasai.hibernate.result.OrderResult;
+import xyz.veiasai.mongodb.receivejson.ReceiveOrder;
+import xyz.veiasai.mongodb.result.OrderResult;
 import xyz.veiasai.hibernate.result.Result;
 import xyz.veiasai.hibernate.service.BookService;
 import xyz.veiasai.mongodb.pojo.Commodity;
 import xyz.veiasai.mongodb.pojo.Order;
+import xyz.veiasai.mongodb.receivejson.SearchOrder;
 import xyz.veiasai.mongodb.service.OrderService;
 import xyz.veiasai.util.MyValidator;
 
@@ -51,15 +52,6 @@ public class OrderController {
         return result;
     }
 
-    @RequestMapping(value = "/getorder")
-    @ResponseBody
-    public Result OrderGet(HttpSession session) throws Exception {
-        OrderResult orderResult = new OrderResult();
-        orderResult.setOrders(orderService.findUserOrders((Integer) session.getAttribute("userID")));
-        orderResult.setCode(200);
-        return orderResult;
-    }
-
     @RequestMapping(value = "/getorder/{id}")
     @ResponseBody
     public Result OrderGetOne(@PathVariable BigInteger id, HttpSession session) throws Exception {
@@ -75,6 +67,15 @@ public class OrderController {
             orderResult.setOrder(order);
             orderResult.setCode(200);
         }
+        return orderResult;
+    }
+
+    @RequestMapping(value = "/searchorders")
+    @ResponseBody
+    public Result OrderGet(@RequestBody @Validated SearchOrder searchOrder, BindingResult bindingResult, HttpSession session) throws Exception {
+        OrderResult orderResult = new OrderResult();
+        orderResult.setOrders(orderService.searchOrders(searchOrder, (Integer) session.getAttribute("userID")));
+        orderResult.setCode(200);
         return orderResult;
     }
 }

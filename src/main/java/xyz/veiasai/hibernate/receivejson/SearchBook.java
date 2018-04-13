@@ -3,35 +3,35 @@ package xyz.veiasai.hibernate.receivejson;
 import java.util.List;
 
 public class SearchBook {
-    private String searchtext;
-    private List<Integer> PriceRange;
-    private List<String> DateRange;
+    private String searchText;
+    private List<Integer> priceRange;
+    private List<String> dateRange;
     private String bookClass;
-    private Integer pagesize;
+    private Integer pageSize;
     private Integer page;
 
-    public String getSearchtext() {
-        return searchtext;
+    public String getSearchText() {
+        return searchText;
     }
 
-    public void setSearchtext(String searchtext) {
-        this.searchtext = searchtext;
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
     }
 
     public List<Integer> getPriceRange() {
-        return PriceRange;
+        return priceRange;
     }
 
     public void setPriceRange(List<Integer> priceRange) {
-        PriceRange = priceRange;
+        this.priceRange = priceRange;
     }
 
     public List<String> getDateRange() {
-        return DateRange;
+        return dateRange;
     }
 
     public void setDateRange(List<String> dateRange) {
-        DateRange = dateRange;
+        this.dateRange = dateRange;
     }
 
     public String getBookClass() {
@@ -42,12 +42,12 @@ public class SearchBook {
         this.bookClass = bookClass;
     }
 
-    public Integer getPagesize() {
-        return pagesize;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setPagesize(Integer pagesize) {
-        this.pagesize = pagesize;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public Integer getPage() {

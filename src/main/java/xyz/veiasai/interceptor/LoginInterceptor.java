@@ -16,7 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor{
             response.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, HEAD");
             response.addHeader("Access-Control-Allow-Headers", "Content-Type");
             response.addHeader("content-type","application/json;charset=UTF-8");
-            response.getWriter().print("{\"code\":403}");
+            response.getWriter().print("{\"message\":\"need login\",\"code\":403}");
             return false;
         }
         return true;

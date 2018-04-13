@@ -27,9 +27,9 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/getcart"/>
-            <mvc:mapping path="/getorder"/>
             <mvc:mapping path="/postcart"/>
             <mvc:mapping path="/postorder"/>
+            <mvc:mapping path="/searchorders"/>
             <bean class="xyz.veiasai.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

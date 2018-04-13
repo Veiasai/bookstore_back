@@ -1,7 +1,8 @@
-package xyz.veiasai.hibernate.result;
+package xyz.veiasai.mongodb.result;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import xyz.veiasai.hibernate.pojo.SingleBook;
+import xyz.veiasai.hibernate.result.Result;
 import xyz.veiasai.mongodb.pojo.BookImgAndDescrption;
 import xyz.veiasai.mongodb.pojo.Order;
 

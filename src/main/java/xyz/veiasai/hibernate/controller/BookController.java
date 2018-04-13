@@ -61,8 +61,7 @@ public class BookController {
             return MyValidator.notMatched(bindingResult, bookResult);
         }
 
-
-        bookResult.setBooks(bookService.searchValid(true));
+        bookResult.setBooks(bookService.searchBooks(searchBook, true));
         bookResult.addMessage("search success");
         bookResult.setCode(200);
         return bookResult;
@@ -72,16 +71,14 @@ public class BookController {
     @ResponseBody
     public Result BookGET(@PathVariable Integer bookID) throws Exception {
         BookResult bookResult = new BookResult();
-        if (bookID == null)
-        {
+        if (bookID == null) {
             bookResult.addMessage("need bookID");
             bookResult.setCode(400);
         }
 
         SingleBook temp1 = bookService.findById(bookID);
         BookImgAndDescrption temp2 = bookImgService.findbyBookid(bookID);
-        if (temp2 == null || temp1 == null || !temp1.getValid())
-        {
+        if (temp2 == null || temp1 == null || !temp1.getValid()) {
             bookResult.addMessage("not found");
             bookResult.setCode(400);
             return bookResult;

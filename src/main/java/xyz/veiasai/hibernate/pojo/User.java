@@ -8,7 +8,6 @@ import javax.validation.constraints.*;
 
 @Entity
 public class User {
-
     @Column
     @NotNull(message="username can't be null")
     @Pattern(regexp="(^$|.{6,20})",message = "username size should be 6-20")

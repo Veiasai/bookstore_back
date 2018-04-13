@@ -1,4 +1,4 @@
-package xyz.veiasai.hibernate.receivejson;
+package xyz.veiasai.mongodb.receivejson;
 
 import javax.validation.constraints.NotNull;
 
