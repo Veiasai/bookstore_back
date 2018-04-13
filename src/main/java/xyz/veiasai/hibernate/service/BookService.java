@@ -71,7 +71,7 @@ public class BookService {
         return bookRepository.findById(id).get();
     }
 
-    public List<Commodity> generateOrder(List<ReceiveCommodity> rebooks, Order order) throws Exception {
+    public void generateOrder(List<ReceiveCommodity> rebooks, Order order) throws Exception {
         List<Commodity> books = new ArrayList<Commodity>();
         Integer total = 0;
         for (ReceiveCommodity sc : rebooks) {
@@ -88,7 +88,6 @@ public class BookService {
         }
         order.setTotalPrice(total);
         order.setBooks(books);
-        return books;
     }
 }
 

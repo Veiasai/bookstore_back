@@ -30,6 +30,8 @@
             <mvc:mapping path="/postcart"/>
             <mvc:mapping path="/postorder"/>
             <mvc:mapping path="/searchorders"/>
+            <mvc:mapping path="/getuser"/>
+            <mvc:mapping path="/postuser"/>
             <bean class="xyz.veiasai.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

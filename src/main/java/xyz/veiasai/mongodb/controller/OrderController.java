@@ -39,14 +39,13 @@ public class OrderController {
         }
         Order order = new Order();
         try {
-            List<Commodity> commodities = bookService.generateOrder(receiveOrder.getBooks(), order);
+            bookService.generateOrder(receiveOrder.getBooks(), order);
         } catch (Exception e) {
             result.addMessage(e.toString());
             result.setCode(400);
         }
         order.setUserID((Integer) session.getAttribute("userID"));
         order.setDate(receiveOrder.getDate());
-        order.setIndex(order.getUserID());
         orderService.add(order);
         result.setCode(200);
         return result;
@@ -60,7 +59,7 @@ public class OrderController {
         if (order == null) {
             orderResult.addMessage("Not Found");
             orderResult.setCode(400);
-        } else if (order.getUserID() != (Integer) session.getAttribute("userID")) {
+        } else if (!(order.getUserID().equals((Integer) session.getAttribute("userID")))) {
             orderResult.addMessage("Forbidden");
             orderResult.setCode(400);
         } else {

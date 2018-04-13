@@ -25,16 +25,13 @@ public class Order implements Serializable {
     @JsonSerialize(using = MyIdSerializer.class)
     private BigInteger id;
 
-    @JsonIgnore
-    @Indexed
-    private Integer index;
-
     private List<Commodity> books;
 
     private String date;
 
     private Integer totalPrice;
 
+    @Indexed
     private Integer userID;
 
 
@@ -60,14 +57,6 @@ public class Order implements Serializable {
 
     public void setId(BigInteger id) {
         this.id = id;
-    }
-
-    public Integer getIndex() {
-        return index;
-    }
-
-    public void setIndex(Integer index) {
-        this.index = index;
     }
 
     public List<Commodity> getBooks() {

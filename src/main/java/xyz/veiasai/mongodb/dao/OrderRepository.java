@@ -11,8 +11,4 @@ import java.util.List;
 
 public interface OrderRepository extends MongoRepository<Order, BigInteger>, QuerydslPredicateExecutor<Order>{
 
-    public Order findByIndex(Integer index);
-
-    public List<Order> findAllByIndex(Integer index);
-
 }

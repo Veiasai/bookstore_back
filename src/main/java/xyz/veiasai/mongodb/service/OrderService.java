@@ -24,17 +24,13 @@ public class OrderService {
         return true;
     }
 
-    public List<Order> findUserOrders(Integer userID) {
-        return orderRepository.findAllByIndex(userID);
-    }
-
     public Order findById(BigInteger id) {
         return orderRepository.findById(id).get();
     }
 
     public List<Order> searchOrders(SearchOrder searchOrder, Integer userID) {
         QOrder qOrder = QOrder.order;
-        BooleanExpression all = qOrder.index.eq(userID);
+        BooleanExpression all = qOrder.userID.eq(userID);
         if (searchOrder.getDateRange() != null)
         {
             all = all.and( qOrder.date.between(searchOrder.getDateRange().get(0),searchOrder.getDateRange().get(1)));
