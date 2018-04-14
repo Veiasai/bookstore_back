@@ -20,6 +20,7 @@ import xyz.veiasai.util.MyValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -32,7 +33,7 @@ public class BookController {
 
     @RequestMapping(value = "/postbook")
     @ResponseBody
-    public Result BookPost(@RequestBody @Validated ReceiveBook receiveBook, BindingResult bindingResult) throws Exception {
+    public Result BookPost(@RequestBody @Validated ReceiveBook receiveBook, BindingResult bindingResult, HttpSession httpSession) throws Exception {
         BookResult bookResult = new BookResult();
         if (bindingResult.hasErrors()) {
             return MyValidator.notMatched(bindingResult, bookResult);
@@ -40,9 +41,12 @@ public class BookController {
         SingleBook singleBook = receiveBook.getSingleBook();
         BookImgAndDescrption bookImgAndDescrption = receiveBook.getBookImgAndDescrption();
 
-        singleBook.setBookID(null);
-        singleBook.setValid(false);
-        singleBook.setBookStock(100);
+        if (httpSession == null || ((Integer)httpSession.getAttribute("level")) == 0)
+        {
+            singleBook.setBookID(null);
+            singleBook.setValid(false);
+            singleBook.setBookStock(100);
+        }
         bookService.add(singleBook);
         bookImgAndDescrption.setBookid(singleBook.getBookID());
         System.out.println(singleBook.getBookID());
@@ -90,7 +94,4 @@ public class BookController {
         return bookResult;
     }
 
-    @RequestMapping(value = "/postbookimg")
-    public void BookImgPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-    }
 }

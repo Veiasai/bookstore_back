@@ -34,6 +34,10 @@
             <mvc:mapping path="/postuser"/>
             <bean class="xyz.veiasai.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/manager/**"/>
+            <bean class="xyz.veiasai.interceptor.ManagerInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <mvc:cors>

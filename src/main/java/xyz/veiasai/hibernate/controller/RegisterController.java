@@ -11,6 +11,7 @@ import xyz.veiasai.hibernate.pojo.User;
 import xyz.veiasai.hibernate.result.Result;
 import xyz.veiasai.hibernate.result.UserResult;
 import xyz.veiasai.hibernate.service.UserService;
+import xyz.veiasai.util.MyValidator;
 
 import javax.validation.Valid;
 
@@ -24,24 +25,21 @@ public class RegisterController {
     @RequestMapping(value = "/register")
     @ResponseBody
     public Result register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
-        UserResult UserResult = new UserResult();
+        UserResult userResult = new UserResult();
         if (bindingResult.hasErrors()) {
-            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                UserResult.addMessage(fieldError.getDefaultMessage());
-            }
-            UserResult.setCode(400);
-            return UserResult;
+            return MyValidator.notMatched(bindingResult, userResult);
         }
 
+        user.setId(null);
+        user.setLevel(0);
+        user.setValid(true);
         if (userService.add(user)) {
-            user.setLevel(0);
-            user.setValid(true);
-            UserResult.setUser(user);
-            UserResult.setCode(200);
+            userResult.setUser(user);
+            userResult.setCode(200);
         } else {
-            UserResult.addMessage("this email has existed");
-            UserResult.setCode(403);
+            userResult.addMessage("this email has existed");
+            userResult.setCode(400);
         }
-        return UserResult;
+        return userResult;
     }
 }

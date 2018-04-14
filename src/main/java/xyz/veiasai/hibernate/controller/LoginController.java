@@ -45,6 +45,7 @@ public class LoginController {
         User user = userService.login(loginUser.getEmail(), loginUser.getPassword());
         if (user != null) {
             httpSession.setAttribute("userID", user.getId());
+            httpSession.setAttribute("level", user.getLevel());
             userResult.setUser(user);
             userResult.setCode(200);
         } else {
