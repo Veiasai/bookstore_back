@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xyz.veiasai.hibernate.service.SaleRecordService;
 import xyz.veiasai.mongodb.receivejson.ReceiveOrder;
 import xyz.veiasai.mongodb.result.OrderResult;
 import xyz.veiasai.hibernate.result.Result;
@@ -30,6 +31,9 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    SaleRecordService saleRecordService;
+
     @RequestMapping(value = "/postorder")
     @ResponseBody
     public Result OrderPost(@RequestBody @Validated ReceiveOrder receiveOrder, BindingResult bindingResult, HttpSession session) throws Exception {
@@ -38,14 +42,15 @@ public class OrderController {
             return MyValidator.notMatched(bindingResult, result);
         }
         Order order = new Order();
+        order.setUserID((Integer) session.getAttribute("userID"));
+        order.setDate(receiveOrder.getDate());
         try {
             bookService.generateOrder(receiveOrder.getBooks(), order);
+            saleRecordService.record(order);
         } catch (Exception e) {
             result.addMessage(e.toString());
             result.setCode(400);
         }
-        order.setUserID((Integer) session.getAttribute("userID"));
-        order.setDate(receiveOrder.getDate());
         orderService.add(order);
         result.setCode(200);
         return result;

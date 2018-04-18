@@ -7,18 +7,27 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xyz.veiasai.hibernate.pojo.SaleRecord;
 import xyz.veiasai.hibernate.pojo.User;
+import xyz.veiasai.hibernate.receivejson.SearchSaleRecord;
 import xyz.veiasai.hibernate.result.Result;
+import xyz.veiasai.hibernate.result.SaleRecordResult;
 import xyz.veiasai.hibernate.result.UserResult;
+import xyz.veiasai.hibernate.service.SaleRecordService;
 import xyz.veiasai.hibernate.service.UserService;
 import xyz.veiasai.util.MyValidator;
 import xyz.veiasai.util.groups.update;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/manager")
 public class ManagerController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SaleRecordService saleRecordService;
 
     @RequestMapping(value = "/postuser")
     @ResponseBody
@@ -62,5 +71,19 @@ public class ManagerController {
         userResult.setUsers(userService.findAll());
         userResult.setCode(200);
         return userResult;
+    }
+
+    @RequestMapping(value = "/getsalerecord")
+    @ResponseBody
+    public Result deleteUser(@RequestBody @Validated SearchSaleRecord searchSaleRecord, BindingResult bindingResult) throws Exception {
+        SaleRecordResult saleRecordResult = new SaleRecordResult();
+        if (bindingResult.hasErrors()) {
+            return MyValidator.notMatched(bindingResult, saleRecordResult);
+        }
+
+        List<SaleRecord> list = saleRecordService.searchBooks(searchSaleRecord);
+        saleRecordResult.setRecords(list);
+        saleRecordResult.setCode(200);
+        return saleRecordResult;
     }
 }
