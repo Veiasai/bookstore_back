@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.hibernate.pojo.SaleRecord;
+import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.hibernate.pojo.User;
 import xyz.veiasai.hibernate.receivejson.SearchSaleRecord;
+import xyz.veiasai.hibernate.result.BookResult;
 import xyz.veiasai.hibernate.result.Result;
 import xyz.veiasai.hibernate.result.SaleRecordResult;
 import xyz.veiasai.hibernate.result.UserResult;
+import xyz.veiasai.hibernate.service.BookService;
 import xyz.veiasai.hibernate.service.SaleRecordService;
 import xyz.veiasai.hibernate.service.UserService;
 import xyz.veiasai.util.MyValidator;
 import xyz.veiasai.util.groups.update;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -28,6 +32,9 @@ public class ManagerController {
 
     @Autowired
     private SaleRecordService saleRecordService;
+
+    @Autowired
+    private BookService bookService;
 
     @RequestMapping(value = "/postuser")
     @ResponseBody
@@ -85,5 +92,24 @@ public class ManagerController {
         saleRecordResult.setRecords(list);
         saleRecordResult.setCode(200);
         return saleRecordResult;
+    }
+
+    @RequestMapping(value = "/updatebook")
+    @ResponseBody
+    public Result BookPost(@RequestBody @Validated SingleBook singleBook, BindingResult bindingResult, HttpSession httpSession) throws Exception {
+        BookResult bookResult = new BookResult();
+        if (bindingResult.hasErrors()) {
+            return MyValidator.notMatched(bindingResult, bookResult);
+        }
+        if (bookService.update(singleBook))
+        {
+            bookResult.addMessage("update success");
+            bookResult.setCode(200);
+        }
+        else {
+            bookResult.addMessage("Invalid bookID");
+            bookResult.setCode(400);
+        }
+        return bookResult;
     }
 }

@@ -29,6 +29,14 @@ public class BookService {
         return false;
     }
 
+    public boolean update(SingleBook singleBook) {
+        if (bookRepository.findByBookID(singleBook.getBookID()) != null) {
+            bookRepository.save(singleBook);
+            return true;
+        }
+        return false;
+    }
+
     public List<SingleBook> searchAll() {
         Iterable<SingleBook> iterable = bookRepository.findAll();
         List<SingleBook> list = new ArrayList<SingleBook>();
@@ -38,9 +46,12 @@ public class BookService {
         return list;
     }
 
-    public List<SingleBook> searchBooks(SearchBook searchBook, Boolean valid) {
+    public List<SingleBook> searchBooks(SearchBook searchBook) {
         QSingleBook qSingleBook = QSingleBook.singleBook;
-        BooleanExpression all = qSingleBook.valid.eq(valid);
+        BooleanExpression all = qSingleBook.valid.eq(true);
+        if (searchBook.getBookValid() != null && searchBook.getBookValid()) {
+            all = qSingleBook.isNotNull();
+        }
         if (searchBook.getDateRange() != null) {
             all = all.and(qSingleBook.bookDate.between(searchBook.getDateRange().get(0), searchBook.getDateRange().get(1)));
         }
@@ -61,10 +72,6 @@ public class BookService {
             list.add(singleBook);
         }
         return list;
-    }
-
-    public List<SingleBook> searchValid(boolean valid) {
-        return bookRepository.findAllByValid(valid);
     }
 
     public SingleBook findById(Integer id) {

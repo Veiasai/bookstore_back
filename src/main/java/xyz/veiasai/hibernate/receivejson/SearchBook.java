@@ -7,8 +7,17 @@ public class SearchBook {
     private List<Integer> priceRange;
     private List<String> dateRange;
     private String bookClass;
+    private Boolean bookValid;
     private Integer pageSize;
     private Integer page;
+
+    public Boolean getBookValid() {
+        return bookValid;
+    }
+
+    public void setBookValid(Boolean bookValid) {
+        this.bookValid = bookValid;
+    }
 
     public String getSearchText() {
         return searchText;

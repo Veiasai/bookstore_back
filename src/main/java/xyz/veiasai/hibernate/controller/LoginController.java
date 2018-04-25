@@ -55,7 +55,6 @@ public class LoginController {
         return userResult;
     }
 
-
     @RequestMapping(value = "/logout")
     @ResponseBody
     public Result Logout(HttpSession httpSession) throws Exception {

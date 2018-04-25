@@ -41,15 +41,12 @@ public class BookController {
         SingleBook singleBook = receiveBook.getSingleBook();
         BookImgAndDescrption bookImgAndDescrption = receiveBook.getBookImgAndDescrption();
 
-        if (httpSession == null || ((Integer)httpSession.getAttribute("level")) == 0)
-        {
-            singleBook.setBookID(null);
-            singleBook.setValid(false);
-            singleBook.setBookStock(100);
-        }
+        singleBook.setBookID(null);
+        singleBook.setValid(false);
+        singleBook.setBookStock(100);
+
         bookService.add(singleBook);
         bookImgAndDescrption.setBookid(singleBook.getBookID());
-        System.out.println(singleBook.getBookID());
         bookImgService.add(bookImgAndDescrption);
 
         bookResult.addMessage("upload success");
@@ -59,13 +56,14 @@ public class BookController {
 
     @RequestMapping(value = "/searchbooks")
     @ResponseBody
-    public Result BookGET(@RequestBody @Valid SearchBook searchBook, BindingResult bindingResult) throws Exception {
+    public Result BookGET(@RequestBody @Valid SearchBook searchBook, HttpSession httpSession, BindingResult bindingResult) throws Exception {
         BookResult bookResult = new BookResult();
         if (bindingResult.hasErrors()) {
             return MyValidator.notMatched(bindingResult, bookResult);
         }
 
-        bookResult.setBooks(bookService.searchBooks(searchBook, true));
+
+        bookResult.setBooks(bookService.searchBooks(searchBook));
         bookResult.addMessage("search success");
         bookResult.setCode(200);
         return bookResult;
