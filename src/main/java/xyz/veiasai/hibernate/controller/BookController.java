@@ -61,8 +61,7 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             return MyValidator.notMatched(bindingResult, bookResult);
         }
-
-
+        searchBook.setBookValid(true);
         bookResult.setBooks(bookService.searchBooks(searchBook));
         bookResult.addMessage("search success");
         bookResult.setCode(200);

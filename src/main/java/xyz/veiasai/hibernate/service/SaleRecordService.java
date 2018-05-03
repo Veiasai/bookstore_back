@@ -68,7 +68,7 @@ public class SaleRecordService {
             saleRecord.setBookName(item.getBookName());
             saleRecord.setBookPrice(item.getBookPrice());
             saleRecord.setBookWriter(item.getBookWriter());
-            this.add(saleRecord);
+            saleRecordRepository.save(saleRecord);
         }
     }
 

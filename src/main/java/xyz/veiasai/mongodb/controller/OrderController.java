@@ -41,6 +41,7 @@ public class OrderController {
         if (bindingResult.hasErrors()) {
             return MyValidator.notMatched(bindingResult, result);
         }
+
         Order order = new Order();
         order.setUserID((Integer) session.getAttribute("userID"));
         order.setDate(receiveOrder.getDate());

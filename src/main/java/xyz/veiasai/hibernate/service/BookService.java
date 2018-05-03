@@ -29,6 +29,14 @@ public class BookService {
         return false;
     }
 
+    public boolean delete(SingleBook singleBook) {
+        if (bookRepository.findByBookID(singleBook.getBookID()) != null) {
+            bookRepository.delete(singleBook);
+            return true;
+        }
+        return false;
+    }
+
     public boolean update(SingleBook singleBook) {
         if (bookRepository.findByBookID(singleBook.getBookID()) != null) {
             bookRepository.save(singleBook);
@@ -48,9 +56,9 @@ public class BookService {
 
     public List<SingleBook> searchBooks(SearchBook searchBook) {
         QSingleBook qSingleBook = QSingleBook.singleBook;
-        BooleanExpression all = qSingleBook.valid.eq(true);
-        if (searchBook.getBookValid() != null && searchBook.getBookValid()) {
-            all = qSingleBook.isNotNull();
+        BooleanExpression all = qSingleBook.isNotNull();
+        if (searchBook.getBookValid() != null) {
+            all = all.and(qSingleBook.valid.eq(searchBook.getBookValid()));
         }
         if (searchBook.getDateRange() != null) {
             all = all.and(qSingleBook.bookDate.between(searchBook.getDateRange().get(0), searchBook.getDateRange().get(1)));

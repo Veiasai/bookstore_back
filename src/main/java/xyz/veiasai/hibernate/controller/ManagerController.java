@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.veiasai.hibernate.pojo.SaleRecord;
 import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.hibernate.pojo.User;
+import xyz.veiasai.hibernate.receivejson.SearchBook;
 import xyz.veiasai.hibernate.receivejson.SearchSaleRecord;
 import xyz.veiasai.hibernate.result.BookResult;
 import xyz.veiasai.hibernate.result.Result;
@@ -22,6 +23,7 @@ import xyz.veiasai.util.MyValidator;
 import xyz.veiasai.util.groups.update;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -110,6 +112,40 @@ public class ManagerController {
             bookResult.addMessage("Invalid bookID");
             bookResult.setCode(400);
         }
+        return bookResult;
+    }
+
+    @RequestMapping(value = "/deletebook")
+    @ResponseBody
+    public Result BookDelete(@RequestBody @Validated SingleBook singleBook, BindingResult bindingResult, HttpSession httpSession) throws Exception {
+        BookResult bookResult = new BookResult();
+        if (bindingResult.hasErrors()) {
+            return MyValidator.notMatched(bindingResult, bookResult);
+        }
+
+        if (bookService.delete(singleBook))
+        {
+            bookResult.addMessage("update success");
+            bookResult.setCode(200);
+        }
+        else {
+            bookResult.addMessage("Invalid bookID");
+            bookResult.setCode(400);
+        }
+        return bookResult;
+    }
+
+    @RequestMapping(value = "/searchbooks")
+    @ResponseBody
+    public Result BookGET(@RequestBody @Valid SearchBook searchBook, HttpSession httpSession, BindingResult bindingResult) throws Exception {
+        BookResult bookResult = new BookResult();
+        if (bindingResult.hasErrors()) {
+            return MyValidator.notMatched(bindingResult, bookResult);
+        }
+        searchBook.setBookValid(null);
+        bookResult.setBooks(bookService.searchBooks(searchBook));
+        bookResult.addMessage("search success");
+        bookResult.setCode(200);
         return bookResult;
     }
 }

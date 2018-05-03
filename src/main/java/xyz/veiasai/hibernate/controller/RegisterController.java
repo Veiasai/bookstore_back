@@ -33,6 +33,7 @@ public class RegisterController {
         user.setId(null);
         user.setLevel(0);
         user.setValid(true);
+        System.out.println(user.getEmail());
         if (userService.add(user)) {
             userResult.setUser(user);
             userResult.setCode(200);
