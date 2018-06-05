@@ -18,8 +18,6 @@ import xyz.veiasai.mongodb.pojo.BookImgAndDescrption;
 import xyz.veiasai.mongodb.service.BookImgService;
 import xyz.veiasai.util.MyValidator;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 

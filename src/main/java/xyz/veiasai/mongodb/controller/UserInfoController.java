@@ -6,21 +6,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.veiasai.hibernate.pojo.SingleBook;
 import xyz.veiasai.hibernate.result.Result;
-import xyz.veiasai.hibernate.service.BookService;
 import xyz.veiasai.mongodb.pojo.Avatar;
 import xyz.veiasai.mongodb.pojo.BookCover;
-import xyz.veiasai.mongodb.pojo.Cart;
 import xyz.veiasai.mongodb.receivejson.ReceiveUserInfo;
-import xyz.veiasai.mongodb.result.CartResult;
 import xyz.veiasai.mongodb.result.UserInfoResult;
-import xyz.veiasai.mongodb.service.CartService;
 import xyz.veiasai.mongodb.service.UserInfoService;
 import xyz.veiasai.util.MyValidator;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class UserInfoController {
