@@ -89,4 +89,11 @@ public class BookController {
         return bookResult;
     }
 
+    @RequestMapping(value = "/postbookimg")
+    @ResponseBody
+    String Imgpost()
+    {
+        return "";
+    }
+
 }

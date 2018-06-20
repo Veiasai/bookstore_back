@@ -1,0 +1,39 @@
+version: '2'
+services:
+  tomcat:
+    image: "tomcat:9-jre8"
+    container_name: bookstore-tomcat
+    depends_on:
+      - mysql
+      - mongo
+    ports:
+      - "8088:8080"
+    networks:
+      - "net1"
+    volumes:
+      - "./webapps:/usr/local/tomcat/webapps"
+  mysql:
+    image: "mysql"
+    container_name: bookstore-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: woshiqiangmima123456
+    expose: 
+      - "3306"
+    networks:
+      - "net1"
+    volumes:
+      - "./mysql:/var/lib/mysql"
+  mongo:
+    image: "mongo:3.2"
+    container_name: bookstore-mongo
+    expose: 
+      - "27017"
+    networks:
+      - "net1"
+    volumes:
+      - "./mongo:/data/db"
+
+
+networks:
+  net1:
+    driver: bridge

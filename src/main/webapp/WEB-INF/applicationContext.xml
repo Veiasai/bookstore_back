@@ -39,7 +39,7 @@
         <property name="username" value="root"/>
         <property name="password" value="woshiqiangmima123456"/>
         <!-- localhost:5900 -->
-        <property name="url" value="jdbc:mysql://202.120.40.109:23359/bookstore?characterEncoding=UTF-8"/>
+        <property name="url" value="jdbc:mysql://mysql:3306/bookstore?characterEncoding=UTF-8"/>
     </bean>
 
     <!--配置EntityManagerFactory-->
@@ -75,7 +75,7 @@
     <jpa:repositories base-package="xyz.veiasai.hibernate.Dao" entity-manager-factory-ref="entityManagerFactory"/>
 
     <!-- spring连接mongodb数据库的配置 localhost:8085-->
-    <mongo:mongo-client replica-set="202.120.40.109:23385" id="mongo">
+    <mongo:mongo-client replica-set="mongo:27017" id="mongo">
         <mongo:client-options connections-per-host="8"
                               threads-allowed-to-block-for-connection-multiplier="4"
                               connect-timeout="1000" max-wait-time="1500"
