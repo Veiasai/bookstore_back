@@ -3,7 +3,7 @@ workspace:
   path: src/github.com/veiasai/back
 pipeline:
   build:
-    image: maven:node:3.6.0-jdk-8-alpine
+    image: maven:3.6.0-jdk-8-alpine
     commands:
       - mvn install
   publish:
