@@ -1,0 +1,14 @@
+workspace:
+  base: /back
+  path: src/github.com/veiasai/back
+pipeline:
+  build:
+    image: maven/node:3.6.0-jdk-8-alpine
+    commands:
+      - mvn install
+  publish:
+    image: plugins/docker
+    repo: veiasai/bookstore-back
+    tags: ["latest", "v1"]
+    secrets: [ docker_username, docker_password ]
+    dockerfile: Dockerfile
