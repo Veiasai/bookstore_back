@@ -9,6 +9,6 @@ pipeline:
   publish:
     image: plugins/docker
     repo: veiasai/bookstore-back
-    tags: ["latest", "v1"]
+    tags: ["latest", "v2"]
     secrets: [ docker_username, docker_password ]
     dockerfile: Dockerfile
